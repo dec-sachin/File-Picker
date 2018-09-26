@@ -72,7 +72,6 @@ class AllImagesScreen : AppCompatActivity() {
                 val intent = Intent()
                 val list = ArrayList<String>()
                 for (image in imagesList) if (image.checked == 1) list.add(image.path)
-                intent.putExtra(Gallery.IMAGE_PATH, list[0])
                 intent.putStringArrayListExtra(Gallery.PATH_LIST, list)
                 intent.putExtra("finish", true)
                 finishScreen(Activity.RESULT_OK, intent)

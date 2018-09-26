@@ -62,11 +62,11 @@ class Gallery : AppCompatActivity() {
         val BOTH = 2
         val DOCUMENT = 3
 
-        var selectionType = SINGLE      // Default SelectionType SINGLE
-        var maxSelection = 5            // Default Max Selection 5
-        var openFor = IMAGES            // Default IMAGES
+        internal var selectionType = SINGLE      // Default SelectionType SINGLE
+        internal var maxSelection = 5            // Default Max Selection 5
+        internal var openFor = IMAGES            // Default IMAGES
 
-        var listToForward: ArrayList<ImageFile>? = null
+        internal var listToForward: ArrayList<ImageFile>? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
