@@ -1,4 +1,4 @@
-# File-Picker
+# Image-Picker
 
 A simple library to select images from the gallery.
 
