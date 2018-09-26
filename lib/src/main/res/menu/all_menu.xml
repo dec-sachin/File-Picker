@@ -6,4 +6,8 @@
         android:title="0"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/ok_btn"
+        android:title="OK"
+        app:showAsAction="always"/>
+
 </menu>

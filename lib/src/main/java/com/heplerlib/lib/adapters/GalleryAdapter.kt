@@ -30,7 +30,7 @@ class GalleryAdapter(val context: Context, private val items: List<ImageFile>, p
             holder!!.itemView.symbol.setImageResource(R.drawable.ic_video_symbol)
         else
             holder!!.itemView.symbol.setImageResource(R.drawable.ic_image_symbol)
-        Glide.with(context).load(File(imageFile.path)).apply(RequestOptions().override(200)).into(holder!!.itemView.image)
+        Glide.with(context).load(File(imageFile.path)).apply(RequestOptions().override(180)).into(holder!!.itemView.image)
         holder!!.itemView.name.text = imageFile.groupName
         holder!!.itemView.count.text = imageFile.counter.toString()
         if (imageFile.selectionCount > 0) {

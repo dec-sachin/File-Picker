@@ -65,6 +65,8 @@ class Gallery : AppCompatActivity() {
         var selectionType = SINGLE      // Default SelectionType SINGLE
         var maxSelection = 5            // Default Max Selection 5
         var openFor = IMAGES            // Default IMAGES
+
+        var listToForward: ArrayList<ImageFile>? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,7 +159,7 @@ class Gallery : AppCompatActivity() {
         finish()
     }
 
-    private fun askPermission(): Boolean{
+    private fun askPermission(): Boolean {
         val permission = Manifest.permission.READ_EXTERNAL_STORAGE
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this as Activity, arrayOf(permission), READ_EXTERNAL_REQUEST)
@@ -308,8 +310,10 @@ class Gallery : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AllImagesScreen.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (!data!!.getBooleanExtra("finish", false)) {
-                val selectedFile = data!!.getParcelableExtra<ImageFile>("file")
+            if (data!!.getBooleanExtra("finish", false)) {
+                finishScreen(Activity.RESULT_OK, data!!)
+            } else {
+                /*val selectedFile = data!!.getParcelableExtra<ImageFile>("file")
                 val tempList = data!!.getParcelableArrayListExtra<ImageFile>("temp_list")
                 var selectionCount = 0
                 for (imageFile in tempList) {
@@ -326,9 +330,7 @@ class Gallery : AppCompatActivity() {
                         break
                     }
                 }
-                list_view.adapter.notifyItemChanged(groupIndex)
-            } else {
-                finishScreen(Activity.RESULT_OK, data!!)
+                list_view.adapter.notifyItemChanged(groupIndex)*/
             }
         }
     }
@@ -345,16 +347,16 @@ class Gallery : AppCompatActivity() {
 
     private inner class ListItemClickListener: GalleryAdapter.ItemClickListener {
         override fun onItemClick(imageFile: ImageFile) {
-            val list = ArrayList<ImageFile>()
+            listToForward = ArrayList<ImageFile>()
             for ((i, item) in listOfAllFiles!!.withIndex()) {
                 if (item.groupName == imageFile.groupName) {
                     item.index = i
-                    list.add(item)
+                    listToForward!!.add(item)
                 }
             }
             val bundle = Bundle()
             bundle.putParcelable("file", imageFile)
-            bundle.putParcelableArrayList("list", list)
+            //bundle.putParcelableArrayList("list", list)
             bundle.putInt("total_selected", count)
             val intent  = Intent(this@Gallery, AllImagesScreen::class.java)
             intent.putExtras(bundle)

@@ -24,19 +24,21 @@ class MainActivity : AppCompatActivity() {
         btn.setOnClickListener {
             val intent = Intent(this, Gallery::class.java)
             intent.putExtra(Gallery.OPEN_FOR, Gallery.IMAGES)
+            intent.putExtra(Gallery.SELECTION_TYPE, Gallery.MULTIPLE)
             startActivityForResult(intent, REQUEST_CODE_IMAGES)
         }
 
         video.setOnClickListener {
             val intent = Intent(this, Gallery::class.java)
             intent.putExtra(Gallery.OPEN_FOR, Gallery.VIDEOS)
+            intent.putExtra(Gallery.SELECTION_TYPE, Gallery.MULTIPLE)
             startActivityForResult(intent, REQUEST_CODE_VIDEOS)
         }
 
         both.setOnClickListener {
             val intent = Intent(this, Gallery::class.java)
             intent.putExtra(Gallery.OPEN_FOR, Gallery.BOTH)
-            intent.putExtra(Gallery.SELECTION_TYPE, Gallery.SINGLE)
+            intent.putExtra(Gallery.SELECTION_TYPE, Gallery.MULTIPLE)
             startActivityForResult(intent, REQUEST_CODE_BOTH)
         }
 
@@ -51,8 +53,14 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_IMAGES && resultCode == Activity.RESULT_OK) {
             val imagePath = data!!.getStringExtra(Gallery.IMAGE_PATH)
+            val pathList = data!!.getStringArrayListExtra(Gallery.PATH_LIST)
+            var paths = ""
+            for (path in pathList) {
+                Log.e("TAGG", ">>>  $path")
+                paths += path + "\n"
+            }
             //image.setImageBitmap(BitmapFactory.decodeFile(imagePath))
-            tv_images_path.text = imagePath
+            tv_images_path.text = paths
         } else if (requestCode == REQUEST_CODE_VIDEOS && resultCode == Activity.RESULT_OK) {
             val videoPath = data!!.getStringExtra(Gallery.VIDEO_PATH)
             tv_images_path.text = videoPath

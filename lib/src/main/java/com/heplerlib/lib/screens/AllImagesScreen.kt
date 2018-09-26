@@ -35,7 +35,7 @@ class AllImagesScreen : AppCompatActivity() {
         setContentView(R.layout.all_images_screen)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         selectedFile = intent.extras.getParcelable<ImageFile>("file")
-        imagesList = intent.extras.getParcelableArrayList("list")
+        imagesList = Gallery.listToForward!!
         totalSelected = intent.extras.getInt("total_selected")
         supportActionBar?.title = selectedFile.groupName
 
@@ -46,11 +46,13 @@ class AllImagesScreen : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.all_menu, menu)
-        if (count == 0)
+        if (count == 0) {
             menu!!.findItem(R.id.counter).isVisible = false
-        else {
+            menu!!.findItem(R.id.ok_btn).isVisible = false
+        } else {
             menu!!.findItem(R.id.counter).title = "[ $count ]"
             menu!!.findItem(R.id.counter).isVisible = true
+            menu!!.findItem(R.id.ok_btn).isVisible = true
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -66,9 +68,17 @@ class AllImagesScreen : AppCompatActivity() {
                 onBackPressed()
                 true
             }
-            else -> {
-                super.onOptionsItemSelected(item)
+            R.id.ok_btn -> {
+                val intent = Intent()
+                val list = ArrayList<String>()
+                for (image in imagesList) if (image.checked == 1) list.add(image.path)
+                intent.putExtra(Gallery.IMAGE_PATH, list[0])
+                intent.putStringArrayListExtra(Gallery.PATH_LIST, list)
+                intent.putExtra("finish", true)
+                finishScreen(Activity.RESULT_OK, intent)
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

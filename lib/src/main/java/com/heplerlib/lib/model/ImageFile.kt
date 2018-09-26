@@ -1,9 +1,12 @@
 package com.heplerlib.lib.model
 
+import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 
 data class ImageFile(var index: Int, val id: String, val title: String, val groupName: String, val path: String, var counter: Int, val isVideo: Int, var checked: Int, var selectionCount: Int = 0) : Parcelable {
+
+    var imageBitmap: Bitmap? = null
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
