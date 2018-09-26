@@ -7,7 +7,6 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -16,6 +15,10 @@ android {
         }
     }
     productFlavors {
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -27,6 +30,19 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
 }
+
+task deleteJar(type: Delete) {
+    delete 'libs/jars/file-picker-lib.jar'
+}
+
+task createJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('libs/jars/')
+    include('classes.jar')
+    rename('classes.jar', 'file-picker-lib.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
