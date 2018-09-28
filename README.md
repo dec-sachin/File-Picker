@@ -4,7 +4,9 @@ A simple library to select images from the gallery.
 
 ## Getting Started
 
-Download the JAR file from JarFile folder and paste it into user app/libs folder in your project. 
+Download the JAR file from JarFile folder and paste it into user app/libs folder in your project.
+
+https://gist.github.com/SHAU-LOK/1cc62ace835ffa8ff460
 
 ### Example
 
