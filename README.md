@@ -40,18 +40,21 @@ startActivityForResult(intent, REQUEST_CODE_DOCUMENT)
 Override onActivityResult method in Your Activity
 ```
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+  //For Single Image Path
+      if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+          val imagePath = data!!.getStringExtra(Gallery.IMAGE_PATH)
+      }
+
+    //For Single Video Path
+    if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        val videoPath = data!!.getStringExtra(Gallery.VIDEO_PATH)
+    }
+
   //For Multiple files
   if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
       val pathList = data!!.getStringArrayListExtra(Gallery.PATH_LIST)
   }
-  //For Single Video Path
-  if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-      val videoPath = data!!.getStringExtra(Gallery.VIDEO_PATH)
-  }
-  //For Single Image Path
-  if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-      val videoPath = data!!.getStringExtra(Gallery.IMAGE_PATH)
-  }
+
   //For Get Document Path
   if (requestCode == REQUEST_CODE_DOCUMENT && resultCode == Activity.RESULT_OK) {
       val path = data!!.getStringExtra(Gallery.DOCUMENT_DATA)

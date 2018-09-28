@@ -39,7 +39,7 @@ task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
     into('libs/jars/')
     include('classes.jar')
-    rename('classes.jar', 'file-picker-lib.jar')
+    rename('classes.jar', 'image-picker-lib.jar')
 }
 
 createJar.dependsOn(deleteJar, build)
